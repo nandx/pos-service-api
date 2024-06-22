@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using pos_service_api.Config;
 using pos_service_api.Models;
+using pos_service_api.Repositories;
 using pos_service_api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,8 +21,16 @@ builder.Services.AddScoped<CutoffReportTaspenSaveService>();
 builder.Services.AddScoped<CutoffReportCreditLifeService>();
 builder.Services.AddScoped<CutoffReportTGASarihusadaService>();
 builder.Services.AddScoped<CutoffReportPerPolicyService>();
+builder.Services.AddScoped<DataMovementService>();
+
+// dao
+builder.Services.AddScoped<DatamovementPerproductDao>();
+builder.Services.AddScoped<DataMovementDao>();
 
 
+
+var connStr = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddNHibernate(connStr);
 
 var app = builder.Build();
 

@@ -22,8 +22,12 @@ namespace pos_service_api.Services
         {
             _context = context;
         }
-        public List<PolicyDto> SearchCadanganPerPolis(int tahun, int bulan, string? policyno, string? productname, string? partnername)
+        public List<PolicyDto> SearchCadanganPerPolis(int? tahun, int? bulan, string? policyno, string? productname, string? partnername)
         {
+            if (tahun == null || bulan == null)
+                return new List<PolicyDto>();
+
+
             var dataTable = new DataTable();
 
             using (SqlConnection connection = (SqlConnection)_context.Database.GetDbConnection())
