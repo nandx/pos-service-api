@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // depedency injection
-builder.Services.AddDbContext<PosDbContext>(options => options.UseSqlServer("DefaultConnection"));
+builder.Services.AddDbContext<PosDbContext>(options => options.UseSqlServer("DefaultConnection", providerOptions => { providerOptions.CommandTimeout(180); }));
 // service
 builder.Services.AddScoped<CutoffReportTaspenSaveService>();
 builder.Services.AddScoped<CutoffReportCreditLifeService>();
